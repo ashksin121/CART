@@ -1,0 +1,12 @@
+.frontScreenMain {
+    height: 100vh;
+    width: 100%;
+    background-color: #fbf8fc;
+    z-index: 500;
+    position: fixed;
+    box-sizing: border-box;
+    transition: all 0.7s ease-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

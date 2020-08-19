@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
+import FrontScreen from './component/frontScreen/frontScreen';
+import Login from './container/login/login';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showFront: true
+    }
+  }
+
+  componentDidMount() {
+    this.id  = setTimeout(() => this.setState({showFront: false}), 2000);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.id);
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <FrontScreen showFront={this.state.showFront} />
+        <Login />
+      </div>
+    );
+  }
 }
 
 export default App;
