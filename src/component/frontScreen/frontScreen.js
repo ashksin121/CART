@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./frontScreen.css";
 
-import Loader from '../../assets/giphy.gif';
+import Loader from '../../assets/frontScreen.jpg';
 
 class frontScreen extends Component {
 

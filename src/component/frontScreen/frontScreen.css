@@ -1,7 +1,7 @@
 .frontScreenMain {
     height: 100vh;
     width: 100%;
-    background-color: #fbf8fc;
+    background-color: #ffffff;
     z-index: 500;
     position: fixed;
     box-sizing: border-box;

@@ -1,7 +1,7 @@
 .login {
     height: 100vh;
     width: 100%;
-    background-color: #f7f7f7;
+    background-color: #2c3642;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,5 +11,75 @@
     height: 70%;
     width: 70%;
     background-color: #ffffff;
-    border-radius: 10px;
+    border-radius: 20px;
+}
+
+.loginMainBlock {
+    height: 100%;
+    width: 40%;
+    float: left;
+}
+
+.loginLogoBlock {
+    height: 100%;
+    width: 60%;
+    float: left;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.loginCont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding: 0 45px;
+}
+
+.loginHeading {
+    height: 30px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #c6c6c6;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.loginSub {
+    height: 16px;
+    font-size: 10px;
+    color: #bababa;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.loginButtonBar {
+    height: 35px;
+    width: 100%;
+}
+
+.loginButton {
+    height: 35px;
+    width: 80px;
+    font-size: 20px;
+    border: 2px solid #2c3642;
+    border-radius: 6px;
+    background-color: #2c3642;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+div.loginButton:hover {
+    color: #2c3642;
+    background-color: #ffffff;
 }

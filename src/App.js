@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
+import {BrowserRouter, Switch, Redirect, Route} from 'react-router-dom';
 import FrontScreen from './component/frontScreen/frontScreen';
 import Login from './container/login/login';
+import Dashboard from './container/dashboard/dashboard';
 import './App.css';
 
 class App extends Component {
@@ -23,7 +25,13 @@ class App extends Component {
     return (
       <div className="App">
         <FrontScreen showFront={this.state.showFront} />
-        <Login />
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/dashboard" component={Dashboard} />
+            <Redirect to={'/login'} />
+          </Switch>
+        </BrowserRouter>
       </div>
     );
   }
