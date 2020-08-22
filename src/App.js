@@ -3,6 +3,7 @@ import {BrowserRouter, Switch, Redirect, Route} from 'react-router-dom';
 import FrontScreen from './component/frontScreen/frontScreen';
 import Login from './container/login/login';
 import Dashboard from './container/dashboard/dashboard';
+// import Dashboard from './component/demoChart/demoChart';
 import './App.css';
 
 class App extends Component {

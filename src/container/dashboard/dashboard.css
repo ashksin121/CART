@@ -24,6 +24,8 @@
     position: fixed;
     right: 0;
     background-color: ebe6e6;
+    display: flex;
+    justify-content: center;
 }
 
 .sideHeading {
