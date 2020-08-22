@@ -2,33 +2,32 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import {Divider} from '@material-ui/core';
 import Chart from 'chart.js';
-// var Chart = require('chart.js');
-import {Line} from 'react-chartjs-2';
-// import { LineChart, Line } from 'recharts';
 import "./dashboard.css";
+import FrontView from '../../assets/front_view.png';
+import SideView from '../../assets/side_view.png';
+import GraphPaper from '../../assets/graph.png';
 
 const styles = () => ({
     
 });
 
-const Hdata = [65, 59, 80, 81, 56];
-
 class Dashboard extends Component {    
     constructor(props) {
         super(props);
         this.state = {
-            myChart: {}
+            dotTop: 0,
+            dotLeft: 0
         }
     }
 
     componentDidMount() {
-        var ctx = document.getElementById('myChart');
+        var ctx = document.getElementById('xAxisChart');
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: [],
                 datasets: [{
-                    label: '# of Votes',
+                    label: 'Displacement in X-axis',
                     data: [],
                     // backgroundColor: [
                     //     'rgba(255, 99, 132, 0.2)',
@@ -60,32 +59,64 @@ class Dashboard extends Component {
             }
         });
 
-        // setTimeout(() => {
-        //     myChart.data.labels.push("Tuturu")
-        //     myChart.data.datasets[0].data.push(15);
-        //     myChart.update();
-        // }, 5000)
+        var ctx2 = document.getElementById('yAxisChart');
+        var myChart2 = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Displacement in Y-axis',
+                    data: [],
+                    // backgroundColor: [
+                    //     'rgba(255, 99, 132, 0.2)',
+                    //     'rgba(54, 162, 235, 0.2)',
+                    //     'rgba(255, 206, 86, 0.2)',
+                    //     'rgba(75, 192, 192, 0.2)',
+                    //     'rgba(153, 102, 255, 0.2)',
+                    //     'rgba(255, 159, 64, 0.2)'
+                    // ],
+                    borderColor: [
+                        // 'rgba(255, 99, 132, 1)',
+                        // 'rgba(54, 162, 235, 1)',
+                        // 'rgba(255, 206, 86, 1)',
+                        // 'rgba(75, 192, 192, 1)',
+                        // 'rgba(153, 102, 255, 1)',
+                        // 'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
 
         var i=0;
         this.timer = setInterval(() => {
+            var x = Math.floor(Math.random() * 5) - 2;
+            var y = Math.floor(Math.random() * 5) - 2;
             myChart.data.labels.push(i);
-            myChart.data.datasets[0].data.push((Math.floor(Math.random() * 5) - 2)/2);
+            myChart.data.datasets[0].data.push(x/2);
+            myChart2.data.labels.push(i);
+            myChart2.data.datasets[0].data.push(y/2);
             myChart.update();
+            myChart2.update();
+            this.setState({
+                dotTop: 7*y,
+                dotLeft: 7*x
+            })
             i++;
-            if(i==15) {
+            if(i==30) {
                 clearInterval(this.timer);
             }
-        }, 2000);
-
-        // myChart.data.labels.push("Tuturu")
-        // myChart.data.datasets[0].data.push(15);
-        // myChart.update()
-        this.setState({ myChart: myChart});
-
-        // var i=0;
-        // this.timer = setInterval(() => {
-
-        // })
+        }, 500);
     }
 
     render() {
@@ -107,8 +138,44 @@ class Dashboard extends Component {
 
                 </div>
                 <div className="dashboardMain">
-                    <div style={{width: "450px"}}>
-                        <canvas id="myChart" width="400" height="200"></canvas>
+                    <div style={{
+                        width: "100%", height: "600"
+                    }}>
+                        <div style={{height: "600", width: "75%", float: "left"}}>
+                            <div className="dashboardGraphBox">
+                                <div className="diagBox">
+                                    <div className="diag">
+                                        <img src={FrontView} alt="FrontView" style={{height: "140px", margin: "auto"}} />
+                                    </div>
+                                    <div className="diagText">
+                                        Anterior Displacement
+                                    </div>
+                                </div>
+                                <div className="graph">
+                                    <canvas id="xAxisChart" width="600" height="200"></canvas>
+                                </div>
+                            </div>
+                            <div className="dashboardGraphBox">
+                                <div className="diagBox">
+                                    <div className="diag">
+                                        <img src={SideView} alt="SideView" style={{height: "140px", margin: "auto"}} />
+                                    </div>
+                                    <div className="diagText">
+                                        Lateral Displacement
+                                    </div>
+                                </div>
+                                <div className="graph">
+                                    <canvas id="yAxisChart" height="200" width="600"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="dotChartBox">
+                            <div style={{height: "300px", width: "250px"}}>
+                                <img src={GraphPaper} alt="GraphPaper" height="300px" style={{position: "fixed"}} />
+                                <div className="dotSafety"></div>
+                                <div className="dotDot" style={{top: `${40 + this.state.dotTop}px`, left: `${112 + this.state.dotLeft}px`}}></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

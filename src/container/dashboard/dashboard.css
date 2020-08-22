@@ -23,7 +23,7 @@
     width: 85%;
     position: fixed;
     right: 0;
-    background-color: ebe6e6;
+    background-color: #f1eeee;
     display: flex;
     justify-content: center;
 }
@@ -36,5 +36,82 @@
     width: 100%;
     font-size: 40px;
     color: #ffffff;
-    font-family: 'Srisakdi', cursive;
+    font-family: 'Monoton', cursive;
+}
+
+.dashboardGraphBox {
+    height: 300px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    box-sizing: border-box;
+    padding-right: 10px;
+}
+
+.graph {
+    width: 620px;
+    height: 220px;
+    position: relative;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 15px;
+}
+
+.diagBox {
+    height: 220px;
+    width: 220px;
+    margin-right: 20px;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 15px;
+}
+
+.diag {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    border: 4px solid green;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.diagText {
+    height: 50px;
+    width: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.dotChartBox {
+    height: 600px;
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    padding-left: 10px;
+}
+
+.dotSafety {
+    height: 100px;
+    width: 75px;
+    border-radius: 50%;
+    border: 2px dotted green;
+    z-index: 50;
+    position: relative;
+    top: 68px;
+    left: 76px;
+}
+
+.dotDot {
+    height: 7px;
+    width: 7px;
+    border-radius: 50%;
+    background-color: red;
+    position: relative;
+    z-index: 100;
 }
