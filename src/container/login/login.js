@@ -29,7 +29,7 @@ class Login extends Component {
                         <Container className="loginCont" style={{display: "flex", padding: "0 70px"}}>
                             <div style={{width: "100%"}} className={classes.label}>
                                 <div className="loginHeading">
-                                    We are <span style={{color: "#2c3642"}}>CART</span>
+                                    We are <span style={{color: "#2c3642", fontFamily: "Monoton, cursive"}}>CART</span>
                                 </div>
                                 <div className="loginSub">
                                     Welcome Back, Please login to your account.
