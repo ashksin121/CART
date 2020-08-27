@@ -5,6 +5,7 @@ import Login from './container/login/login';
 import Dashboard from './container/dashboard/dashboard';
 // import Dashboard from './component/demoChart/demoChart';
 import './App.css';
+require('dotenv').config()
 
 class App extends Component {
   constructor(props) {

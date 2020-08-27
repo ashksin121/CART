@@ -7,6 +7,7 @@ import FrontView from '../../assets/front_view.png';
 import SideView from '../../assets/side_view.png';
 import GraphPaper from '../../assets/graph.png';
 import UserLogo from '../../assets/user_logo.png';
+import {db} from '../../firebase';
 
 const styles = () => ({
     
@@ -17,7 +18,9 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             dotTop: 0,
-            dotLeft: 0
+            dotLeft: 0,
+            data: [0,0,0],
+            values: [0,0,0]
         }
     }
 
@@ -26,10 +29,10 @@ class Dashboard extends Component {
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: [],
+                labels: [0],
                 datasets: [{
                     label: 'Displacement in X-axis',
-                    data: [],
+                    data: [0],
                     backgroundColor: [
                         'rgba(241, 238, 238, 0)'
                     ],
@@ -46,6 +49,11 @@ class Dashboard extends Component {
                         ticks: {
                             beginAtZero: true
                         }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            display: false
+                        }
                     }]
                 }
             }
@@ -55,10 +63,10 @@ class Dashboard extends Component {
         var myChart2 = new Chart(ctx2, {
             type: 'line',
             data: {
-                labels: [],
+                labels: [0],
                 datasets: [{
                     label: 'Displacement in Y-axis',
-                    data: [],
+                    data: [0],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0)',
                     ],
@@ -75,26 +83,86 @@ class Dashboard extends Component {
                         ticks: {
                             beginAtZero: true
                         }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            display: false
+                        }
                     }]
                 }
             }
         });
 
+        // db.collection("sensors").doc("sensorsdata").get()
+        // .then(snapshot => {
+        //     console.log(snapshot.data())
+        // })
+
         var i=0;
+        var values = [0,0,0];
+        var displayData = [0,0,0];
         this.timer = setInterval(() => {
-            var x = Math.floor(Math.random() * 5) - 2;
-            var y = Math.floor(Math.random() * 5) - 2;
-            myChart.data.labels.push(i);
-            myChart.data.datasets[0].data.push(x/2);
-            myChart2.data.labels.push(i);
-            myChart2.data.datasets[0].data.push(y/2);
-            myChart.update();
-            myChart2.update();
-            this.setState({
-                dotTop: 7*y,
-                dotLeft: 7*x
+
+            db.collection("sensors").doc("sensorsdata").get()
+            .then(doc => {
+                var data = doc.data()['gyroscope'];
+                // console.log("data", data);
+                if(data) {
+                    data.map(d => {
+                        var diff = [0,0,0];
+                        diff[0] = d.x - values[0];
+                        diff[1] = d.y - values[1];
+                        diff[2] = d.z - values[2];
+                        displayData = diff;
+                        values[0] = d.x;
+                        values[1] = d.y;
+                        values[2] = d.z;
+                        console.log("displayData", displayData);
+                        var x = displayData[0];
+                        var y = displayData[2];
+                        var n = myChart.data.labels.length;
+                        myChart.data.labels.push(n);
+                        myChart.data.datasets[0].data.push(x);
+                        myChart2.data.labels.push(n);
+                        myChart2.data.datasets[0].data.push(y);
+                        myChart.update();
+                        myChart2.update();
+                        this.setState({
+                            dotTop: 100*y,
+                            dotLeft: 100*x
+                        })
+                    })
+                    // var diff = [];
+                    // for(var i=0;i<3;i++) {
+                    //     // console.log(data[i] - prevData[i])
+                    //     diff.push(0.5*(data[i] - prevData[i]));
+                    // }
+                    // // console.log("diff", diff)
+                    // values = diff;
+                    // prevData = data;
+                    // this.setState({
+                    //     data: data,
+                    //     values: diff
+                    // })
+                    // console.log("values", values);
+                }
+
+                // var x = values[0];
+                // var y = values[2];
+                // var n = myChart.data.labels.length;
+                // myChart.data.labels.push(n);
+                // myChart.data.datasets[0].data.push(x);
+                // myChart2.data.labels.push(n);
+                // myChart2.data.datasets[0].data.push(y);
+                // myChart.update();
+                // myChart2.update();
+                // this.setState({
+                //     dotTop: 500*y,
+                //     dotLeft: 500*x
+                // })
             })
             i++;
+            console.log(i);
             if(i==30) {
                 clearInterval(this.timer);
             }
@@ -104,7 +172,7 @@ class Dashboard extends Component {
     render() {
         const { classes, theme } = this.props;
 
-        console.log("myChart", this.state.myChart)
+        // console.log("myData", this.state.dotLeft, this.state.dotLeft);
 
         return (
             <div className="dashboard">
