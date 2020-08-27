@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     final CollectionReference cities = db.collection("sensors");
     final Map<String, ArrayList> data1 = new HashMap<>();
+    ArrayList gyro_array=new ArrayList();
     private Handler handler = new Handler();
 
     @Override
@@ -65,28 +68,34 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
             ArrayList arr=new ArrayList();
             arr.add(sensorEvent.values[0]);arr.add(sensorEvent.values[1]);arr.add(sensorEvent.values[2]);
-            data1.put("gravity",arr);
+//            data1.put("gravity",arr);
 
         }else if(t.equals(linear_accelerometer)){
             acc.setText("Accelerometer\n"+sensorEvent.values[0] + "\n" + sensorEvent.values[1] + "\n" + sensorEvent.values[2] + "\n");
 
             ArrayList arr=new ArrayList();
             arr.add(sensorEvent.values[0]);arr.add(sensorEvent.values[1]);arr.add(sensorEvent.values[2]);
-            data1.put("accelerometer",arr);
+//            data1.put("accelerometer",arr);
 
         }else if(t.equals(magnetometer)){
             magnet.setText("Magnetometer\n"+sensorEvent.values[0] + "\n" + sensorEvent.values[1] + "\n" + sensorEvent.values[2] + "\n");
 
             ArrayList arr=new ArrayList();
             arr.add(sensorEvent.values[0]);arr.add(sensorEvent.values[1]);arr.add(sensorEvent.values[2]);
-            data1.put("magnetometer",arr);
+//            data1.put("magnetometer",arr);
 
         }else{
             gyro.setText("Gyroscope\n"+sensorEvent.values[0] + "\n" + sensorEvent.values[1] + "\n" + sensorEvent.values[2] + "\n");
+            DecimalFormat df = new DecimalFormat("#.###");
 
-            ArrayList arr=new ArrayList();
-            arr.add(sensorEvent.values[0]);arr.add(sensorEvent.values[1]);arr.add(sensorEvent.values[2]);
-            data1.put("gyroscope",arr);
+            df.setRoundingMode(RoundingMode.FLOOR);
+
+            HashMap gyro_map=new HashMap();
+            gyro_map.put("x",new Double(df.format(sensorEvent.values[0])));
+            gyro_map.put("y",new Double(df.format(sensorEvent.values[1])));
+            gyro_map.put("z",new Double(df.format(sensorEvent.values[2])));
+            gyro_array.add(gyro_map);
+            data1.put("gyroscope",gyro_array);
 
         }
 //        cities.document("sensors").set(data1);
@@ -101,8 +110,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
-            Log.e("hello",data1+"");
+            Log.e("hello",gyro_array+"");
             cities.document("sensorsdata").set(data1);
+            gyro_array.clear();
             handler.postDelayed(this,500);
         }
     };
