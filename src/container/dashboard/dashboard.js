@@ -41,6 +41,24 @@ class Dashboard extends Component {
                     ],
                     borderWidth: 2,
                     circular: false
+                }, {
+                    label: "Safety Limit",
+                    data: [1.04],
+                    backgroundColor: [
+                        'rgba(0,255,0,0.3)'
+                    ],
+                    borderColor: [
+                        'rgba(0,255,0,0.3)'
+                    ]
+                }, {
+                    label: "Safety Limit",
+                    data: [-1.04],
+                    backgroundColor: [
+                        'rgba(0,255,0,0.3)'
+                    ],
+                    borderColor: [
+                        'rgba(0,255,0,0.3)'
+                    ]
                 }]
             },
             options: {
@@ -55,6 +73,19 @@ class Dashboard extends Component {
                             display: false
                         }
                     }]
+                },
+                legend: {
+                    labels: {
+                        filter: function(item, chart) {
+                            // Logic to remove a particular legend item goes here
+                            return !item.text.includes('Safety Limit');
+                        }
+                    }
+                },
+                elements: {
+                    point: {
+                        radius: 0
+                    }
                 }
             }
         });
@@ -71,9 +102,27 @@ class Dashboard extends Component {
                         'rgba(255, 99, 132, 0)',
                     ],
                     borderColor: [
-                        'green'
+                        'blue'
                     ],
                     borderWidth: 2
+                }, {
+                    label: "Safety Limit",
+                    data: [1.04],
+                    backgroundColor: [
+                        'rgba(0,255,0,0.3)'
+                    ],
+                    borderColor: [
+                        'rgba(0,255,0,0.3)'
+                    ]
+                }, {
+                    label: "Safety Limit",
+                    data: [-1.04],
+                    backgroundColor: [
+                        'rgba(0,255,0,0.3)'
+                    ],
+                    borderColor: [
+                        'rgba(0,255,0,0.3)'
+                    ]
                 }]
             },
             options: {
@@ -89,6 +138,19 @@ class Dashboard extends Component {
                             display: false
                         }
                     }]
+                },
+                legend: {
+                    labels: {
+                        filter: function(item, chart) {
+                            // Logic to remove a particular legend item goes here
+                            return !item.text.includes('Safety Limit');
+                        }
+                    }
+                },
+                elements: {
+                    point: {
+                        radius: 0
+                    }
                 }
             }
         });
@@ -123,13 +185,17 @@ class Dashboard extends Component {
                         var n = myChart.data.labels.length;
                         myChart.data.labels.push(n);
                         myChart.data.datasets[0].data.push(x);
+                        myChart.data.datasets[1].data.push(1.04);
+                        myChart.data.datasets[2].data.push(-1.04);
                         myChart2.data.labels.push(n);
                         myChart2.data.datasets[0].data.push(y);
+                        myChart2.data.datasets[1].data.push(1.04);
+                        myChart2.data.datasets[2].data.push(-1.04);
                         myChart.update();
                         myChart2.update();
                         this.setState({
-                            dotTop: 100*y,
-                            dotLeft: 100*x
+                            dotTop: 36.058*y,
+                            dotLeft: 36.058*x
                         })
                     })
                     // var diff = [];
@@ -226,7 +292,7 @@ class Dashboard extends Component {
                             <div style={{height: "300px", width: "250px"}}>
                                 <img src={GraphPaper} alt="GraphPaper" height="300px" style={{position: "fixed"}} />
                                 <div className="dotSafety"></div>
-                                <div className="dotDot" style={{top: `${40 + this.state.dotTop}px`, left: `${112 + this.state.dotLeft}px`}}></div>
+                                <div className="dotDot" style={{top: `${65 + this.state.dotTop}px`, left: `${112 + this.state.dotLeft}px`}}></div>
                             </div>
                         </div>
                     </div>

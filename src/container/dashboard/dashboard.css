@@ -101,13 +101,13 @@
 }
 
 .dotSafety {
-    height: 100px;
+    height: 75px;
     width: 75px;
     border-radius: 50%;
     border: 2px dotted green;
     z-index: 50;
     position: relative;
-    top: 68px;
+    top: 108px;
     left: 76px;
 }
 
