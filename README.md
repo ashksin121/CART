@@ -4,8 +4,8 @@ A small and smart medical solution that tracks inner ear balance, and spinal pos
 
 ## Components
 
-* Android app - For collecting data from the patient, using pre-installed sensors
-* Web platform - For displaying the results of the patient
+* Android app - For collecting data from the patient, using pre-installed sensors on the smartphone of the patient. The idea of using smartphone as the hardware came because of the COVID19 pandemic as we were not having the hardware required for the project
+* Web platform - For displaying and analyzing the results of the patient
 
 You can find this project **[here](https://romberg-test.herokuapp.com/)**
 
